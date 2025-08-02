@@ -1,9 +1,12 @@
 import mongoose from 'mongoose' 
+import debug from 'debug'
+const dblog = debug("dev:db")
+
 
 const connectdb = async (url) =>{
     try{
         await mongoose.connect(url)
-        console.log("db connected....")
+        dblog("db connected....")
     }catch(e){
         console.log(e)
     }

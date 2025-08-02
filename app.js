@@ -2,8 +2,12 @@ import express from 'express'
 import connectdb from './config/db.js'
 import dotenv from 'dotenv'; dotenv.config()
 import path from 'path'
+import debug from 'debug'; 
 
 const app= express()
+
+// debugs:
+const log = debug("dev:app")
 
 
 // routes
@@ -26,12 +30,12 @@ app.use(express.static(path.join(process.cwd(),"public")))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-
+// using routes
 app.use('/admin',ownerrouter)
 app.use('/users',userrouter)
 app.use('/products',productrouter)
 
 
 app.listen(port,()=>{
-    console.log(`server up ! http://localhost:${port}`)
+   log(`server up ! http://localhost:${port}`)
 }) 
