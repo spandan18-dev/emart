@@ -1,6 +1,8 @@
 import mongoose from 'mongoose' 
+
+// debug
 import debug from 'debug'
-const dblog = debug("dev:db")
+const dblog = debug("development:db")
 
 
 const connectdb = async (url) =>{

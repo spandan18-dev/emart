@@ -30,4 +30,6 @@ const adminSchema = new mongoose.Schema({
 })  
 
 
-const adminMOdel = mongoose.model("admin",adminSchema)
+const adminModel = mongoose.model("admin",adminSchema)
+
+export default adminModel

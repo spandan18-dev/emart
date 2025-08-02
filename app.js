@@ -7,7 +7,8 @@ import debug from 'debug';
 const app= express()
 
 // debugs:
-const log = debug("dev:app")
+const log = debug("development:app")
+
 
 
 // routes
