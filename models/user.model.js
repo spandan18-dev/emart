@@ -17,9 +17,6 @@ const userSchema = new mongoose.Schema({
         required:true,
         min:[6, "password should atleast of 6 character or more "]
     },
-    isadmin:{
-        type:Boolean
-    },
     cart:{
         type:Array,
         default:[]

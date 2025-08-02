@@ -15,6 +15,7 @@ const log = debug("development:app")
 import ownerrouter from './routes/owner.route.js'
 import productrouter from './routes/product.route.js'
 import userrouter from './routes/user.route.js'
+import indexrouter from './routes/index.route.js'
 
 //data from .env
 const port = process.env.PORT
@@ -32,6 +33,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 // using routes
+app.use('/',indexrouter)
 app.use('/admin',ownerrouter)
 app.use('/users',userrouter)
 app.use('/products',productrouter)
