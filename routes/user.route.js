@@ -1,18 +1,22 @@
 import express from 'express'
 const router = express.Router()
-import {user,
-    userreg
-} from '../controllers/user.logic.js'
-
 import {body} from 'express-validator'
+
+
+// controllers 
+import {user,userreg} from '../controllers/user.regester.logic.js'
+import {userlogin} from '../controllers/user.login.logic.js'
 
 router.get('/',user)
 
 // Regester with express validator  
+
+
 router.post('/regester',
     body("email")
         .trim()
-        .isEmail(),
+        .isEmail()
+        .withMessage("enter a vailid email"),
     body("fullname")
         .trim()
         .isLength({min:3})
@@ -24,5 +28,9 @@ router.post('/regester',
 
 
     userreg)
+
+// Login routes 
+
+router.post('/login',userlogin)
 
 export default router

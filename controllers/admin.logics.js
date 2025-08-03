@@ -9,6 +9,8 @@ const adminpage = ((req,res)=>{
     res.send("admin page is working")
 })
 
+// Regester Admin Logic : 
+
 const addadmin = async(req,res)=>{
 
     const admins = await adminModel.find();
