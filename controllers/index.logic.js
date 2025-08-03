@@ -1,9 +1,17 @@
 import userModel from '../models/user.model.js'
+import productModel from '../models/product.model.js'
 
 const logsinpge = ((req,res)=>{
-    const error = console.error();
-    
+    let error = req.flash("error")
     res.render("index",{error})
 })
 
-export  {logsinpge}  
+const shoplogic = ((req,res)=>{
+    const products = productModel.find()
+    res.render('shop',{products : [products]})
+})
+
+
+export  {logsinpge,
+    shoplogic
+}  

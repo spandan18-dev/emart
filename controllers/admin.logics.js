@@ -9,7 +9,7 @@ const adminpage = ((req,res)=>{
     res.send("admin page is working")
 })
 
-// Regester Admin Logic : 
+// Regester Admin Logic :
 
 const addadmin = async(req,res)=>{
 
