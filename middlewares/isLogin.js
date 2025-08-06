@@ -12,8 +12,7 @@ const islogin = async (req, res, next) => {
     try{
         let decoded = jwt.verify(req.cookies.token,process.env.JWT_KEY)
         let user =await userModel.findOne({email:decoded.email}).select("-password")
-
-        req.user = user
+        req.user = user   // it say that all req is done by the spasific user
         res.set('Cache-Control', 'no-store'); // ✅ Prevent browser caching
         next()
     }catch(e){

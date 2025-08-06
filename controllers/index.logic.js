@@ -21,4 +21,25 @@ const shoplogic = async (req, res) => {
   }
 };
 
-export { logsinpge, shoplogic };
+// Cart
+
+const viewcart = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await productModel.findById(id); // ✅ use findById instead of find
+
+    if (!product) {
+      req.flash('error', 'Product not found');
+      return res.redirect('/shop');
+    }
+
+    res.render("cart", { product });
+  } catch (err) {
+    console.error("ViewCart Error:", err);
+    req.flash('error', 'Something went wrong');
+    res.redirect('/shop');
+  }
+};
+
+
+export { logsinpge, shoplogic , viewcart };
