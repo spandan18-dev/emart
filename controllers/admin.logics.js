@@ -1,13 +1,11 @@
 import adminModel from '../models/admin-model.js'
 import bcrypt from 'bcrypt'
+import flash from 'connect-flash'
 
 //  debugs :
 import debug from 'debug'
 const admincount = debug("development:admincount")
 
-const adminpage = ((req,res)=>{
-    res.send("admin page is working")
-})
 
 // Regester Admin Logic :
 
@@ -35,6 +33,12 @@ const addadmin = async(req,res)=>{
     res.status(201)
     .send(newadmin)
 }
+
+// Admin Pages :
+const adminpage = ((req,res)=>{
+    let success = req.flash("success")
+    res.render("createproducts",{success})
+})
 
 export {addadmin,
     adminpage

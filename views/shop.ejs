@@ -1,50 +1,105 @@
 <%- include('./partials/header') %>
-    <div class="w-full h-screen flex items-start px-20 py-20">
-        <div class="w-[25%] flex h-screen flex-col items-start">
-            <div class="flex items-center gap-2">
-                <h3>sort by</h3>
-                <form action="/shop">
-                    <select class="border-[1px] px-2 py-1" name="sortby" id="">
-                        <option value="popular">Popular</option>
-                        <option value="newest">Newest</option>
-                    </select>
-                </form>
-            </div>
-            <div class="flex flex-col mt-20">
-                <a class="block w-fit mb-2" href="">New Collection</a>
-                <a class="block w-fit mb-2" href="">All Products</a>
-                <a class="block w-fit mb-2" href="">Discounted Products</a>
-            </div>
-            <div class="mt-32">
-                <a class="block w-fit mb-2" href="">Filter by :</a>
-                <a class="block w-fit mb-2" href="">Availability</a>
-                <a class="block w-fit mb-2" href="">Discount</a>
-            </div>
-        </div>
-        <div class="w-[75%] flex flex-col gap-5 h-screen">
-            <div class="flex items-start gap-5">
-                <% products.forEach(function(product){ %>
-                    <div class="w-60">
-                        <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
-                            <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                                alt="">
-                        </div>
-                        <div
-                            class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
-                            <div>
-                                <h3>
-                                    <%= product.name %>
-                                </h3>
-                                <h4>₹ <%= product.price %>
-                                </h4>
-                            </div>
-                            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                                <i class="ri-add-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <% }) %>
-            </div>
-        </div>
+
+<!-- ✅ Flash Messages -->
+<% if ((error || []).length > 0) { %>
+  <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-red-500 px-4 py-2 rounded text-white shadow-md z-50">
+    <%= error[0] %>
+  </div>
+<% } %>
+
+<% if ((msg || []).length > 0) { %>
+  <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-500 px-4 py-2 rounded text-white shadow-md z-50">
+    <%= msg[0] %>
+  </div>
+<% } %>
+
+<!-- ✅ Page Layout -->
+<div class="w-full min-h-screen flex flex-col lg:flex-row gap-10 px-4 md:px-10 py-10">
+  <!-- ✅ Sidebar -->
+  <div class="w-full lg:w-1/4 flex flex-col items-start">
+    <h1 class="text-2xl font-bold text-purple-700 mb-6">SnikVerse</h1>
+
+    <!-- Sort Dropdown -->
+    <div class="flex items-center gap-2 mb-6">
+      <h3>Sort by</h3>
+      <form action="/shop" method="GET">
+        <select class="border px-2 py-1 rounded" name="sortby" onchange="this.form.submit()">
+          <option value="popular">Popular</option>
+          <option value="newest">Newest</option>
+        </select>
+      </form>
     </div>
-    <%- include('./partials/footer') %>
+
+    <!-- Navigation Links -->
+    <div class="flex flex-col mb-10 text-gray-800">
+      <a class="mb-2 hover:text-black" href="">New Collection</a>
+      <a class="mb-2 hover:text-black" href="">All Products</a>
+      <a class="mb-2 hover:text-black" href="">Discounted Products</a>
+    </div>
+
+    <!-- Filter Links -->
+    <div class="text-gray-800">
+      <span class="mb-2 block font-semibold">Filter by:</span>
+      <a class="mb-2 block hover:text-black" href="">Availability</a>
+      <a class="mb-2 block hover:text-black" href="">Discount</a>
+    </div>
+  </div>
+
+  <!-- ✅ Product Grid -->
+  <div class="w-full lg:w-3/4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+      <% products.forEach(function(product) { %>
+        <div class="border rounded shadow-sm overflow-hidden flex flex-col h-full min-h-[250px] hover:shadow-md transition">
+          <!-- ✅ Product Image -->
+          <div class="w-full h-52 flex items-center justify-center"
+               style="background-color:<%= product.bgcolor %>;">
+            <% if (product.image) { %>
+              <img class="h-[12rem] object-contain"
+                   src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                   alt="Product Image">
+            <% } else { %>
+              <img class="h-[12rem] object-contain"
+                   src="/images/default-product.jpg"
+                   alt="Default Product">
+            <% } %>
+          </div>
+
+          <!-- ✅ Product Info -->
+          <div class="flex justify-between items-center px-4 py-3 mt-auto"
+               style="background-color:<%= product.panelcolor %>; color:<%= product.textcolor %>;">
+            <div class="flex flex-col w-[80%]">
+              <!-- ✅ Truncated Title with Tooltip -->
+              <h3 class="font-medium text-sm truncate w-full" title="<%= product.itemname %>">
+                <%= product.itemname %>
+              </h3>
+              <h4 class="text-xs mt-1">₹ <%= product.price %></h4>
+            </div>
+            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-black hover:bg-gray-800" href="#">
+              <i class="ri-add-line text-white text-lg"></i>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>
+
+<!-- ✅ Flash Message Auto-Close -->
+<script>
+  setTimeout(() => {
+    const successBox = document.querySelector('.bg-green-500');
+    const errorBox = document.querySelector('.bg-red-500');
+
+    if (successBox) {
+      successBox.classList.add('opacity-0');
+      setTimeout(() => successBox.remove(), 500);
+    }
+
+    if (errorBox) {
+      errorBox.classList.add('opacity-0');
+      setTimeout(() => errorBox.remove(), 500);
+    }
+  }, 3000);
+</script>

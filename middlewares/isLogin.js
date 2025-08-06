@@ -14,7 +14,7 @@ const islogin = async (req, res, next) => {
         let user =await userModel.findOne({email:decoded.email}).select("-password")
 
         req.user = user
-
+        res.set('Cache-Control', 'no-store'); // ✅ Prevent browser caching
         next()
     }catch(e){
         req.flash("error","somthing wrong")

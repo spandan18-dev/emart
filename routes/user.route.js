@@ -33,4 +33,13 @@ router.post('/regester',
 
 router.post('/login',userlogin)
 
+// logout Routes
+
+router.get('/logout',(req,res)=>{
+    res.clearCookie("token")
+    req.flash("msg","Logout sucesfully")
+    res.redirect('/')
+
+})
+
 export default router

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
 const productSchema = new mongoose.Schema({
-    Image : {
-        type:String
+    image : {
+        type:Buffer
     },
     itemname:{
         type:String
@@ -14,13 +14,9 @@ const productSchema = new mongoose.Schema({
         type:Number,
         default :0
     },
-    bgcolor : {
-        type:String
-    },
-    textcolor :{
-        type:String
-    }
-
+    bgcolor: String,
+    panelcolor: String, 
+    textcolor: String
 })
 
 const productModel = mongoose.model("product",productSchema)

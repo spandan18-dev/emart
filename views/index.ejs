@@ -1,10 +1,25 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnikVerse</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
 <% if (error.length > 0) { %>
-  <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-red-500 px-4 py-2 rounded text-white shadow-md z-50">
+  <div class="flash-message fixed top-5 left-1/2 -translate-x-1/2 bg-red-500 px-4 py-2 rounded text-white shadow-md z-50">
     <%= error %>
   </div>
 <% } %>
+<% if (msg.length > 0) { %>
+  <div class="flash-message fixed top-5 left-1/2 -translate-x-1/2 bg-red-500 px-4 py-2 rounded text-white shadow-md z-50">
+    <%= msg %>
+  </div>
+<% } %>
+
 
 <!-- Auth Section -->
 <div class="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 py-10 gap-8 bg-white">
@@ -24,7 +39,7 @@
         class="bg-zinc-100 w-full px-3 py-2 border border-zinc-200 rounded-md mb-3"
         type="password" placeholder="Password" name="password">
       <input
-        class="w-full py-3 mt-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
+        class="w-full py-3 mt-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-600 transition"
         type="submit" value="Create My Account">
     </form>
   </div>
@@ -41,11 +56,21 @@
         class="bg-zinc-100 w-full px-3 py-2 border border-zinc-200 rounded-md mb-3"
         type="password" placeholder="Password" name="password">
       <input
-        class="w-full py-3 mt-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
+        class="w-full py-3 mt-2 rounded-full bg-gray-800 text-white font-semibold hover:bg-gray-600 transition"
         type="submit" value="Login">
     </form>
   </div>
 
 </div>
+
+<script>
+  setTimeout(() => {
+    const flashMessages = document.querySelectorAll('.flash-message');
+    flashMessages.forEach(msg => {
+      msg.classList.add('opacity-0');
+      setTimeout(() => msg.remove(), 500); // smooth remove after fade
+    });
+  }, 2000);
+</script>
 
 <%- include('./partials/footer') %>

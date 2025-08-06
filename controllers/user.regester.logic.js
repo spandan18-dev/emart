@@ -20,7 +20,7 @@ const userreg = async (req,res)=>{
 // Check if user alredy exixt or not
         let checkUser = await userModel.findOne({email : email})
         if(checkUser){
-            res.status(400).send("You alredy have account , plese login")
+         return   res.status(400).send("You alredy have account , plese login")
         }
 
         if(!error.isEmpty()){
@@ -40,7 +40,7 @@ const userreg = async (req,res)=>{
 
         const token =  generateToken(newuser);
 
-        return res.status(201).send("User registered successfully");
+        res.redirect('/shop')
 
 
     } catch(err){

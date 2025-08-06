@@ -13,4 +13,5 @@ import {logsinpge,
 router.get('/',logsinpge)
 router.get('/shop',islogin,shoplogic)
 
+
 export default router

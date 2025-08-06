@@ -34,11 +34,6 @@ app.use(expressSession({
    resave: false,
    saveUninitialized: false,
    secret: process.env.SESSION_KEY,
-   cookie: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24
-   }
 }));
 app.use(flash());
 
